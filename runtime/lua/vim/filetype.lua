@@ -901,6 +901,12 @@ local extension = {
       return "text"
     end
   end,
+  cmd = function (path, bufnr)
+    if getline(bufnr, 1):match("^/\\*") then
+      return "rexx"
+    end
+    return "dosbatch"
+  end
   -- END EXTENSION
 }
 
