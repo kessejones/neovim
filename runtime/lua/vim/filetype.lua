@@ -1,3 +1,4 @@
+---@diagnostic disable: unused-local
 local api = vim.api
 
 local M = {}
@@ -49,8 +50,25 @@ local extension = {
   art = "art",
   asciidoc = "asciidoc",
   adoc = "asciidoc",
+  asa = function(path, bufnr)
+    if vim.g.filetype_asa then
+      return vim.g.filetype_asa
+    else
+      return "aspvbs"
+    end
+  end,
   ["asn1"] = "asn",
   asn = "asn",
+  asp = function(path, bufnr)
+    if vim.g.filetype_asp then
+      return vim.g.filetype_asp
+    elseif getline(bufnr, 1):find("perlscript")
+      or getline(bufnr, 2):find("perlscript")
+      or getline(bufnr, 3):find("perlscript") then
+    else
+      return "aspvbs"
+    end
+  end,
   atl = "atlas",
   as = "atlas",
   ahk = "autohotkey",
@@ -683,6 +701,16 @@ local extension = {
   bbl = "tex",
   latex = "tex",
   sty = "tex",
+  cls = function(path, bufnr)
+    local line = getline(bufnr, 1)
+    if line[1] == "%" then
+      return "tex"
+    elseif line[1] == "#" and line:find("rexx") then
+      return "rexx"
+    else
+      return "st"
+    end
+  end,
   texi = "texinfo",
   txi = "texinfo",
   texinfo = "texinfo",
@@ -761,6 +789,13 @@ local extension = {
   csproj = "xml",
   wpl = "xml",
   xmi = "xml",
+  xpm = function(path, bufnr)
+    if getline(bufnr, 1):find("XPM2") then
+      return "xpm2"
+    else
+      return "xpm"
+    end
+  end,
   ["xpm2"] = "xpm2",
   xqy = "xquery",
   xqm = "xquery",
@@ -1231,6 +1266,7 @@ local pattern = {
   [".*/boot/grub/grub%.conf"] = "grub",
   [".*/boot/grub/menu%.lst"] = "grub",
   [".*/etc/grub%.conf"] = "grub",
+  [vim.env.VIMRUNTIME .. "/doc/.*%.txt"] = "help",
   ["hg%-editor%-.*%.txt"] = "hgcommit",
   [".*/etc/host%.conf"] = "hostconf",
   [".*/etc/hosts%.deny"] = "hostsaccess",
@@ -1285,6 +1321,7 @@ local pattern = {
   [".*/etc/passwd"] = "passwd",
   [".*/etc/passwd%.edit"] = "passwd",
   [".*/etc/shadow-"] = "passwd",
+  [".*%.php%d"] = "php",
   [".*/%.pinforc"] = "pinfo",
   [".*/etc/pinforc"] = "pinfo",
   [".*/etc/protocols"] = "protocols",
