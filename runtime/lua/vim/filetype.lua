@@ -21,8 +21,10 @@ local function starsetf(ft)
 end
 
 ---@private
-local function getline(bufnr, lnum)
-  return api.nvim_buf_get_lines(bufnr, lnum-1, lnum, false)[1] or ""
+local function getline(bufnr, start_lnum, end_lnum)
+  end_lnum = end_lnum or start_lnum
+  local lines = vim.api.nvim_buf_get_lines(bufnr, start_lnum - 1, end_lnum, false)
+  return table.concat(lines) or ""
 end
 
 -- Filetypes based on file extension
@@ -62,9 +64,7 @@ local extension = {
   asp = function(path, bufnr)
     if vim.g.filetype_asp then
       return vim.g.filetype_asp
-    elseif getline(bufnr, 1):find("perlscript")
-      or getline(bufnr, 2):find("perlscript")
-      or getline(bufnr, 3):find("perlscript") then
+    elseif getline(bufnr, 1, 3):find("perlscript") then
     else
       return "aspvbs"
     end
