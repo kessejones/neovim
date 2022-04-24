@@ -1,4 +1,3 @@
----@diagnostic disable: unused-local
 local api = vim.api
 
 local M = {}
@@ -29,6 +28,7 @@ end
 
 -- Filetypes based on file extension
 -- luacheck: push no unused args
+---@diagnostic disable: unused-local
 local extension = {
   -- BEGIN EXTENSION
   ["8th"] = "8th",
@@ -907,6 +907,12 @@ local extension = {
       return "rexx"
     end
     return "dosbatch"
+  end,
+  rul = function(path, bufnr)
+    if getline(bufnr, 1, 6):lower():find("installshield") then
+      return "ishd"
+    end
+    return "diva"
   end,
   -- END EXTENSION
 }
