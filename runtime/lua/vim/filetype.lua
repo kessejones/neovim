@@ -914,6 +914,12 @@ local extension = {
     end
     return "diva"
   end,
+  cpy = function(path, bufnr)
+    if getline(bufnr, 1):find("^##") then
+      return "python"
+    end
+    return "cobol"
+  end,
   -- END EXTENSION
 }
 
