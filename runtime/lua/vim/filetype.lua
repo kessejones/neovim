@@ -145,7 +145,7 @@ local extension = {
   hxx = "cpp",
   hpp = "cpp",
   cpp = function(path, bufnr)
-    if vim.g.cynlib_syntax_for_cc then
+    if vim.g.cynlib_syntax_for_cpp then
       return "cynlib"
     end
     return "cpp"
