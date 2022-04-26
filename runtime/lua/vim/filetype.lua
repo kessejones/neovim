@@ -935,6 +935,18 @@ local extension = {
     end
     return "clojure"
   end,
+  smil = function(path, bufnr)
+    if getline(bufnr, 1):find("<?%s*xml.*?>") then
+      return "xml"
+    end
+    return "smil"
+  end,
+  smi = function(path, bufnr)
+    if getline(bufnr, 1):find("<smil>") then
+      return "smil"
+    end
+    return "mib"
+  end,
   -- END EXTENSION
 }
 
