@@ -926,6 +926,15 @@ local extension = {
     end
     return "structurizr"
   end,
+  edf = "edif",
+  edfi = "edif",
+  edo = "edif",
+  edn = function(path, bufnr)
+    if getline(bufnr, 1):find("^%s*%(%s*edif>") then
+      return "edif"
+    end
+    return "clojure"
+  end,
   -- END EXTENSION
 }
 
