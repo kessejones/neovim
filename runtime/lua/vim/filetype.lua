@@ -947,6 +947,12 @@ local extension = {
     end
     return "mib"
   end,
+  install = function(path, bufnr)
+    if getline(bufnr, 1):find("<%?php") then
+      return "php"
+    end
+    vim.fn["dist#ft#SetFileTypeSH"]("bash")
+  end,
   -- END EXTENSION
 }
 
