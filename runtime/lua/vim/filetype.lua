@@ -920,6 +920,12 @@ local extension = {
     end
     return "cobol"
   end,
+  dsl = function(path, bufnr)
+    if getline(bufnr, 1):find("^%s*<!") then
+      return "dsl"
+    end
+    return "structurizr"
+  end,
   -- END EXTENSION
 }
 
