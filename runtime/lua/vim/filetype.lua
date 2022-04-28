@@ -968,6 +968,12 @@ local extension = {
       return "nroff"
     end
   end,
+  reg = function(path, bufnr)
+    local line = getline(bufnr, 1)
+    if line:find("^REGEDIT[0-9]*%s*$") or line:find("^Windows Registry Editor Version %d*%.%d*%s*$") then
+      return "registry"
+    end
+  end,
   -- END EXTENSION
 }
 
