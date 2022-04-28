@@ -1,5 +1,4 @@
 local api = vim.api
-local fn = vim.fn
 
 local M = {}
 
@@ -962,8 +961,9 @@ local extension = {
       return "perl"
     end
   end,
-  me = function()
-    if fn.expand('<afile>') ~= 'read.me' and fn.expand('<afile>') ~= 'click.me' then
+  me = function(path)
+    local filename = vim.fn.fnamemodify(path, ":t")
+    if filename ~= "read.me" and filename ~= "click.me" then
       return "nroff"
     end
   end,
