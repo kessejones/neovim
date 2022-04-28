@@ -989,6 +989,12 @@ local extension = {
       return "sgmldecl"
     end
   end,
+  web = function(path, bufnr)
+    if getline(bufnr, 1, 5):find("^%%") then
+      return "web"
+    end
+    return "winbatch"
+  end,
   -- END EXTENSION
 }
 
