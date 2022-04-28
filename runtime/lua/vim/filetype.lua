@@ -1,4 +1,5 @@
 local api = vim.api
+local fn = vim.fn
 
 local M = {}
 
@@ -960,6 +961,11 @@ local extension = {
       return "xpm"
     else
       return "perl"
+    end
+  end,
+  me = function()
+    if fn.expand('<afile>') ~= 'read.me' and fn.expand('<afile>') ~= 'click.me' then
+      return "nroff"
     end
   end,
   -- END EXTENSION
