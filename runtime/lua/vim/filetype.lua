@@ -995,6 +995,13 @@ local extension = {
     end
     return "winbatch"
   end,
+  ttl = function(path, bufnr)
+    local line = getline(bufnr, 1)
+    if line:find("^@?prefix") or line:find("^@?base") then
+      return "turtle"
+    end
+    return "teraterm"
+  end,
   -- END EXTENSION
 }
 
