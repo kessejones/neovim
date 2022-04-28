@@ -953,6 +953,15 @@ local extension = {
     end
     vim.fn["dist#ft#SetFileTypeSH"]("bash")
   end,
+  pm = function(path, bufnr)
+    if getline(bufnr, 1):find("XPM2") then
+      return "xpm2"
+    elseif getline(bufnr, 1):find("XPM") then
+      return "xpm"
+    else
+      return "perl"
+    end
+  end,
   -- END EXTENSION
 }
 
