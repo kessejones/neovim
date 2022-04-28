@@ -109,7 +109,6 @@ local extension = {
   cho = "chordpro",
   chordpro = "chordpro",
   eni = "cl",
-  dcl = "clean",
   icl = "clean",
   cljx = "clojure",
   clj = "clojure",
@@ -972,6 +971,22 @@ local extension = {
     local line = getline(bufnr, 1)
     if line:find("^REGEDIT[0-9]*%s*$") or line:find("^Windows Registry Editor Version %d*%.%d*%s*$") then
       return "registry"
+    end
+  end,
+  decl = function(path, bufnr)
+    if getline(bufnr, 1, 3):lower():find("^<!sgml") then
+      return "sgmldecl"
+    end
+  end,
+  dcl = function(path, bufnr)
+    if getline(bufnr, 1, 3):lower():find("^<!sgml") then
+      return "sgmldecl"
+    end
+    return "clean"
+  end,
+  dec = function(path, bufnr)
+    if getline(bufnr, 1, 3):lower():find("^<!sgml") then
+      return "sgmldecl"
     end
   end,
   -- END EXTENSION
