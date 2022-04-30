@@ -1042,6 +1042,11 @@ local extension = {
       return "tads"
     end
   end,
+  class = function(path, bufnr)
+    if not getline(bufnr, 1):find("^\xca\xfe\xba\xbe") then
+      return "stata"
+    end
+  end,
   -- END EXTENSION
 }
 
