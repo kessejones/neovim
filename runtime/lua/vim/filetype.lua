@@ -1037,6 +1037,11 @@ local extension = {
       return "xmath"
     end
   end,
+  t = function()
+    if not vim.fn["dist#ft#FTnroff"]() and not vim.fn["dist#ft#FTperl"]() then
+      return "tads"
+    end
+  end,
   -- END EXTENSION
 }
 
