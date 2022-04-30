@@ -1002,6 +1002,12 @@ local extension = {
     end
     return "teraterm"
   end,
+  am = function(path, bufnr)
+    local filename = vim.fn.fnamemodify(path, ":t"):lower()
+    if not filename:find("makefile.am$") then
+      return "elf"
+    end
+  end,
   -- END EXTENSION
 }
 
