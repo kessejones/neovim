@@ -1032,6 +1032,11 @@ local extension = {
     end
     return "virata"
   end,
+  ms = function()
+    if not vim.fn["dist#ft#FTnroff"]() then
+      return "xmath"
+    end
+  end,
   -- END EXTENSION
 }
 
