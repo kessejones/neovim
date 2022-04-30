@@ -1014,6 +1014,24 @@ local extension = {
       return "m4"
     end
   end,
+  hw = function(path, bufnr)
+    if getline(bufnr, 1):find("<%?php") then
+      return "php"
+    end
+    return "virata"
+  end,
+  module = function(path, bufnr)
+    if getline(bufnr, 1):find("<%?php") then
+      return "php"
+    end
+    return "virata"
+  end,
+  pkg = function(path, bufnr)
+    if getline(bufnr, 1):find("<%?php") then
+      return "php"
+    end
+    return "virata"
+  end,
   -- END EXTENSION
 }
 
