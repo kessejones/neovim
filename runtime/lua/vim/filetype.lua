@@ -1008,6 +1008,12 @@ local extension = {
       return "elf"
     end
   end,
+  ["m4"] = function(path, bufnr)
+    local filename = vim.fn.fnamemodify(path, ":t"):lower()
+    if not filename:find("html.m4$") and not filename:find("fvwm2rc") then
+      return "m4"
+    end
+  end,
   -- END EXTENSION
 }
 
