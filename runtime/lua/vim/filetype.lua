@@ -703,9 +703,9 @@ local extension = {
   sty = "tex",
   cls = function(path, bufnr)
     local line = getline(bufnr, 1)
-    if line:sub(1, 1) == "%" then
+    if line:find("^%%") then
       return "tex"
-    elseif line:sub(1, 1) == "#" and line:find("rexx") then
+    elseif line:find("^#") and line:find("rexx") then
       return "rexx"
     else
       return "st"
