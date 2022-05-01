@@ -961,7 +961,7 @@ local extension = {
       return "perl"
     end
   end,
-  me = function(path)
+  me = function(path, bufnr)
     local filename = vim.fn.fnamemodify(path, ":t")
     if filename ~= "read.me" and filename ~= "click.me" then
       return "nroff"
@@ -1032,13 +1032,13 @@ local extension = {
     end
     return "virata"
   end,
-  ms = function()
-    if not vim.fn["dist#ft#FTnroff"]() then
+  ms = function(path, bufnr)
+    if vim.fn["dist#ft#FTnroff"]() == 0 then
       return "xmath"
     end
   end,
-  t = function()
-    if not vim.fn["dist#ft#FTnroff"]() and not vim.fn["dist#ft#FTperl"]() then
+  t = function(path, bufnr)
+    if vim.fn["dist#ft#FTnroff"]() == 0 and vim.fn["dist#ft#FTperl"]() == 0 then
       return "tads"
     end
   end,
