@@ -1047,6 +1047,28 @@ local extension = {
       return "stata"
     end
   end,
+  sgml = function(path, bufnr)
+    if getline(bufnr, 1, 5):lower():find("linuxdoc") then
+      return "smgllnx"
+    elseif getline(bufnr, 1, 2):find("<!DOCTYPE.*DocBook") then
+      vim.b.docbk_type = "sgml"
+      vim.b.docbk_ver = 4
+      return "docbk"
+    else
+      return "sgml"
+    end
+  end,
+  sgm = function(path, bufnr)
+    if getline(bufnr, 1, 5):lower():find("linuxdoc") then
+      return "smgllnx"
+    elseif getline(bufnr, 1, 2):find("<!DOCTYPE.*DocBook") then
+      vim.b.docbk_type = "sgml"
+      vim.b.docbk_ver = 4
+      return "docbk"
+    else
+      return "sgml"
+    end
+  end,
   -- END EXTENSION
 }
 
