@@ -1069,6 +1069,16 @@ local extension = {
       return "sgml"
     end
   end,
+  rc = function(path, bufnr)
+    if not path:find("/etc/Muttrc.d/") then
+      return "rc"
+    end
+  end,
+  rch = function(path, bufnr)
+    if not path:find("/etc/Muttrc.d/") then
+      return "rc"
+    end
+  end,
   -- END EXTENSION
 }
 
