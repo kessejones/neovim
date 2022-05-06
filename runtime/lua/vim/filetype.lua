@@ -61,15 +61,7 @@ local extension = {
   end,
   ["asn1"] = "asn",
   asn = "asn",
-  asp = function(path, bufnr)
-    if vim.g.filetype_asp then
-      return vim.g.filetype_asp
-    elseif getline(bufnr, 1, 3):find("perlscript") then
-       return "aspperl"
-    else
-      return "aspvbs"
-    end
-  end,
+  asp = function(path, bufnr) return require("vim.filetype.detect").asp(bufnr) end,
   atl = "atlas",
   as = "atlas",
   ahk = "autohotkey",
@@ -907,12 +899,7 @@ local extension = {
     end
     return "dosbatch"
   end,
-  rul = function(path, bufnr)
-    if getline(bufnr, 1, 6):lower():find("installshield") then
-      return "ishd"
-    end
-    return "diva"
-  end,
+  rul = function(path, bufnr) require("vim.filetype.detect").rul(bufnr) end,
   cpy = function(path, bufnr)
     if getline(bufnr, 1):find("^##") then
       return "python"
@@ -974,15 +961,10 @@ local extension = {
       return "registry"
     end
   end,
-  decl = function(path, bufnr) return require('vim.filetype.detect').decl(bufnr) end,
-  dec = function(path, bufnr) return require('vim.filetype.detect').decl(bufnr) end,
-  dcl = function(path, bufnr) return require('vim.filetype.detect').dcl(bufnr) end,
-  web = function(path, bufnr)
-    if getline(bufnr, 1, 5):find("^%%") then
-      return "web"
-    end
-    return "winbatch"
-  end,
+  decl = function(path, bufnr) require('vim.filetype.detect').decl(bufnr) end,
+  dec = function(path, bufnr) require('vim.filetype.detect').decl(bufnr) end,
+  dcl = function(path, bufnr) require('vim.filetype.detect').dcl(bufnr) end,
+  web = function(path, bufnr) require('vim.filetype.detect').web(bufnr) end,
   ttl = function(path, bufnr)
     local line = getline(bufnr, 1)
     if line:find("^@?prefix") or line:find("^@?base") then
@@ -1035,28 +1017,8 @@ local extension = {
       return "stata"
     end
   end,
-  sgml = function(path, bufnr)
-    if getline(bufnr, 1, 5):lower():find("linuxdoc") then
-      return "smgllnx"
-    elseif getline(bufnr, 1, 2):find("<!DOCTYPE.*DocBook") then
-      vim.b[bufnr].docbk_type = "sgml"
-      vim.b[bufnr].docbk_ver = 4
-      return "docbk"
-    else
-      return "sgml"
-    end
-  end,
-  sgm = function(path, bufnr)
-    if getline(bufnr, 1, 5):lower():find("linuxdoc") then
-      return "smgllnx"
-    elseif getline(bufnr, 1, 2):find("<!DOCTYPE.*DocBook") then
-      vim.b[bufnr].docbk_type = "sgml"
-      vim.b[bufnr].docbk_ver = 4
-      return "docbk"
-    else
-      return "sgml"
-    end
-  end,
+  sgml = function(path, bufnr) require("vim.filetype.detect").sgml(bufnr) end,
+  sgm = function(path, bufnr) require("vim.filetype.detect").sgml(bufnr) end,
   rc = function(path, bufnr)
     if not path:find("/etc/Muttrc%.d/") then
       return "rc"

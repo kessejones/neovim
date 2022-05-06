@@ -426,6 +426,48 @@ function M.dcl(bufnr)
   vim.bo[bufnr].filetype = "clean"
 end
 
+function M.sgml(bufnr)
+  if getlines(bufnr, 1, 5, { concat = true }):lower():find("linuxdoc") then
+    vim.bo[bufnr] = "smgllnx"
+    return
+  end
+  if getlines(bufnr, 1, 5, { concat = true }):lower():find("<!DOCTYPE.*DocBook") then
+    vim.b[bufnr].docbk_type = "sgml"
+    vim.b[bufnr].docbk_ver = 4
+    vim.bo[bufnr] = "docbk"
+    return
+  end
+  vim.bo[bufnr] = "sgml"
+end
+
+function M.web(bufnr)
+  for _, line in ipairs(getlines(bufnr, 1, 5)) do
+    if line:find("^%%") then
+      vim.bo[bufnr] = "web"
+      return
+    end
+  end
+  vim.bo[bufnr] = "winbatch"
+end
+
+function M.rul(bufnr)
+  if getlines(bufnr, 1, 6, { concat = true }):lower():find("installshield") then
+    vim.bo[bufnr].filetype = "ishd"
+    return
+  end
+  vim.bo[bufnr].filetype = "diva"
+end
+
+function M.asp(bufnr)
+  if vim.g.filetype_asp then
+    vim.bo[bufnr].filetype = vim.g.vim.g.filetype_asp
+  elseif getlines(bufnr, 1, 3, { concat = true }):lower():find("perlscript") then
+    vim.bo[bufnr].filetype = "aspperl"
+  else
+    vim.bo[bufnr].filetype = "aspvbs"
+  end
+end
+
 -- luacheck: pop
 -- luacheck: pop
 
