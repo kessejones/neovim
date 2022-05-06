@@ -407,6 +407,25 @@ function M.y(bufnr)
   vim.bo[bufnr].filetype = "yacc"
 end
 
+function M.decl(bufnr)
+  for _, line in ipairs(getlines(bufnr, 1, 3)) do
+    if line:lower():find("^<!sgml") then
+      vim.bo[bufnr].filetype = "sgmldecl"
+      return
+    end
+  end
+end
+
+function M.dcl(bufnr)
+  for _, line in ipairs(getlines(bufnr, 1, 3)) do
+    if line:lower():find("^<!sgml") then
+      vim.bo[bufnr].filetype = "sgmldecl"
+      return
+    end
+  end
+  vim.bo[bufnr].filetype = "clean"
+end
+
 -- luacheck: pop
 -- luacheck: pop
 

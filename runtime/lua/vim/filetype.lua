@@ -935,7 +935,7 @@ local extension = {
     return "clojure"
   end,
   smil = function(path, bufnr)
-    if getline(bufnr, 1):find("<?%s*xml.*?>") then
+    if getline(bufnr, 1):find("<%?%s*xml.*%?>") then
       return "xml"
     end
     return "smil"
@@ -953,9 +953,10 @@ local extension = {
     vim.fn["dist#ft#SetFileTypeSH"]("bash")
   end,
   pm = function(path, bufnr)
-    if getline(bufnr, 1):find("XPM2") then
+    local line = getline(bufnr, 1)
+    if line:find("XPM2") then
       return "xpm2"
-    elseif getline(bufnr, 1):find("XPM") then
+    elseif line:find("XPM") then
       return "xpm"
     else
       return "perl"
@@ -968,27 +969,14 @@ local extension = {
     end
   end,
   reg = function(path, bufnr)
-    local line = getline(bufnr, 1)
-    if line:find("^REGEDIT[0-9]*%s*$") or line:find("^Windows Registry Editor Version %d*%.%d*%s*$") then
+    local line = getline(bufnr, 1):lower()
+    if line:find("^regedit[0-9]*%s*$") or line:find("^windows registry editor version %d*%.%d*%s*$") then
       return "registry"
     end
   end,
-  decl = function(path, bufnr)
-    if getline(bufnr, 1, 3):lower():find("^<!sgml") then
-      return "sgmldecl"
-    end
-  end,
-  dcl = function(path, bufnr)
-    if getline(bufnr, 1, 3):lower():find("^<!sgml") then
-      return "sgmldecl"
-    end
-    return "clean"
-  end,
-  dec = function(path, bufnr)
-    if getline(bufnr, 1, 3):lower():find("^<!sgml") then
-      return "sgmldecl"
-    end
-  end,
+  decl = function(path, bufnr) return require('vim.filetype.detect').decl(bufnr) end,
+  dec = function(path, bufnr) return require('vim.filetype.detect').decl(bufnr) end,
+  dcl = function(path, bufnr) return require('vim.filetype.detect').dcl(bufnr) end,
   web = function(path, bufnr)
     if getline(bufnr, 1, 5):find("^%%") then
       return "web"
@@ -1004,13 +992,13 @@ local extension = {
   end,
   am = function(path, bufnr)
     local filename = vim.fn.fnamemodify(path, ":t"):lower()
-    if not filename:find("makefile.am$") then
+    if not filename:find("makefile%.am$") then
       return "elf"
     end
   end,
   ["m4"] = function(path, bufnr)
     local filename = vim.fn.fnamemodify(path, ":t"):lower()
-    if not filename:find("html.m4$") and not filename:find("fvwm2rc") then
+    if not filename:find("html%.m4$") and not filename:find("fvwm2rc") then
       return "m4"
     end
   end,
@@ -1043,7 +1031,7 @@ local extension = {
     end
   end,
   class = function(path, bufnr)
-    if not getline(bufnr, 1):find("^\xca\xfe\xba\xbe") then
+    if not getline(bufnr, 1):find("^%xca%xfe%xba%xbe") then
       return "stata"
     end
   end,
@@ -1051,8 +1039,8 @@ local extension = {
     if getline(bufnr, 1, 5):lower():find("linuxdoc") then
       return "smgllnx"
     elseif getline(bufnr, 1, 2):find("<!DOCTYPE.*DocBook") then
-      vim.b.docbk_type = "sgml"
-      vim.b.docbk_ver = 4
+      vim.b[bufnr].docbk_type = "sgml"
+      vim.b[bufnr].docbk_ver = 4
       return "docbk"
     else
       return "sgml"
@@ -1062,20 +1050,20 @@ local extension = {
     if getline(bufnr, 1, 5):lower():find("linuxdoc") then
       return "smgllnx"
     elseif getline(bufnr, 1, 2):find("<!DOCTYPE.*DocBook") then
-      vim.b.docbk_type = "sgml"
-      vim.b.docbk_ver = 4
+      vim.b[bufnr].docbk_type = "sgml"
+      vim.b[bufnr].docbk_ver = 4
       return "docbk"
     else
       return "sgml"
     end
   end,
   rc = function(path, bufnr)
-    if not path:find("/etc/Muttrc.d/") then
+    if not path:find("/etc/Muttrc%.d/") then
       return "rc"
     end
   end,
   rch = function(path, bufnr)
-    if not path:find("/etc/Muttrc.d/") then
+    if not path:find("/etc/Muttrc%.d/") then
       return "rc"
     end
   end,
